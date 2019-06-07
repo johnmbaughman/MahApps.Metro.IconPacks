@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Markup;
 using System.Windows.Media.Animation;
-using ControlzEx;
 
 namespace MahApps.Metro.IconPacks
 {
@@ -108,6 +107,48 @@ namespace MahApps.Metro.IconPacks
             if (this.Kind is PackIconSimpleIconsKind)
             {
                 return this.GetPackIcon<PackIconSimpleIcons, PackIconSimpleIconsKind>((PackIconSimpleIconsKind) this.Kind);
+            }
+#endif
+#if ALL || WEATHERICONS
+            if (this.Kind is PackIconWeatherIconsKind)
+            {
+                return this.GetPackIcon<PackIconWeatherIcons, PackIconWeatherIconsKind>((PackIconWeatherIconsKind) this.Kind);
+            }
+#endif
+#if ALL || TYPICONS
+            if (this.Kind is PackIconTypiconsKind)
+            {
+                return this.GetPackIcon<PackIconTypicons, PackIconTypiconsKind>((PackIconTypiconsKind) this.Kind);
+            }
+#endif
+#if ALL || FEATHERICONS
+            if (this.Kind is PackIconFeatherIconsKind)
+            {
+                return this.GetPackIcon<PackIconFeatherIcons, PackIconFeatherIconsKind>((PackIconFeatherIconsKind) this.Kind);
+            }
+#endif
+#if ALL || MATERIALDESIGN
+            if (this.Kind is PackIconMaterialDesignKind)
+            {
+                return this.GetPackIcon<PackIconMaterialDesign, PackIconMaterialDesignKind>((PackIconMaterialDesignKind) this.Kind);
+            }
+#endif
+#if ALL || IONICONS
+            if (this.Kind is PackIconIoniconsKind)
+            {
+                return this.GetPackIcon<PackIconIonicons, PackIconIoniconsKind>((PackIconIoniconsKind) this.Kind);
+            }
+#endif
+#if ALL || JAMICONS
+            if (this.Kind is PackIconJamIconsKind)
+            {
+                return this.GetPackIcon<PackIconJamIcons, PackIconJamIconsKind>((PackIconJamIconsKind) this.Kind);
+            }
+#endif
+#if ALL || UNICONS
+            if (this.Kind is PackIconUniconsKind)
+            {
+                return this.GetPackIcon<PackIconUnicons, PackIconUniconsKind>((PackIconUniconsKind) this.Kind);
             }
 #endif
             return null;

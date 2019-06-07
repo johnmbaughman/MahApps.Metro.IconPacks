@@ -1,8 +1,6 @@
 ﻿namespace MahApps.Metro.IconPacks
 {
-#if NETFX_CORE
-    using MahApps.Metro.IconPacks.Core;
-#else
+#if !(NETFX_CORE || WINDOWS_UWP)
     using System.ComponentModel;
 #endif
 
@@ -227,6 +225,7 @@
         [Description("info")] Info,
         [Description("info-with-circle")] InfoWithCircle,
         [Description("instagram (Social Extension)")] Instagram,
+        [Description("instagram-with-circle (Social Extension)")] InstagramWithCircle,
         [Description("install")] Install,
         [Description("key")] Key,
         [Description("keyboard")] Keyboard,

@@ -1,8 +1,6 @@
 ﻿namespace MahApps.Metro.IconPacks
 {
-#if NETFX_CORE
-    using MahApps.Metro.IconPacks.Core;
-#else
+#if !(NETFX_CORE || WINDOWS_UWP)
     using System.ComponentModel;
 #endif
 
@@ -21,6 +19,8 @@
     {
         [Description("Empty placeholder")] None,
         [Description("Alert (Warning, Triangle, Exclamation, Point)")] Alert,
+        [Description("Archive (Box, Catalog)")] Archive,
+        [Description("ArrowBoth (Point, Direction, Left, Right)")] ArrowBoth,
         [Description("ArrowDown (Point, Direction)")] ArrowDown,
         [Description("ArrowLeft (Point, Direction)")] ArrowLeft,
         [Description("ArrowRight (Point, Direction)")] ArrowRight,
@@ -71,6 +71,7 @@
         [Description("DiffRenamed (Moved, Arrow)")] DiffRenamed,
         [Description("Ellipsis (Dot, Read, More, Hidden, Expand)")] Ellipsis,
         [Description("Eye (Look, Watch, See)")] Eye,
+        [Description("EyeClosed (Hidden, Invisible, Concealed, )")] EyeClosed,
         [Description("File (File, Text, Words)")] File,
         [Description("FileBinary (Image, Video, Word, Powerpoint, Excel)")] FileBinary,
         [Description("FileCode (Text, Javascript, Html, Css, Php, Ruby, Coffeescript, Sass, Scss)")] FileCode,
@@ -83,6 +84,8 @@
         [Description("FileZip (Compress, Archive)")] FileZip,
         [Description("Flame (Fire, Hot, Burn, Trending)")] Flame,
         [Description("Fold (Unfold, Hide, Collapse)")] Fold,
+        [Description("FoldDown (Unfold, Hide, Collapse, Down)")] FoldDown,
+        [Description("FoldUp (Unfold, Hide, Collapse, Up)")] FoldUp,
         [Description("Gear (Settings)")] Gear,
         [Description("Gift (Package, Present, Skill, Craft, Freebie)")] Gift,
         [Description("Gist (Gist, Github)")] Gist,
@@ -90,6 +93,7 @@
         [Description("GitBranch (Fork, Branch, Git, Duplicate)")] GitBranch,
         [Description("GitCommit (Save)")] GitCommit,
         [Description("GitCompare (Difference, Changes)")] GitCompare,
+        [Description("GithubAction (Board, Workflow, Action, Automation)")] GithubAction,
         [Description("GitMerge (Join)")] GitMerge,
         [Description("GitPullRequest (Review)")] GitPullRequest,
         [Description("Globe (World, Earth, Planet)")] Globe,
@@ -140,6 +144,7 @@
         [Description("Pencil (Edit, Change, Update, Write)")] Pencil,
         [Description("Person (People, Man, Woman, Human)")] Person,
         [Description("Pin (Save, Star, Bookmark)")] Pin,
+        [Description("Play (Play, Start, Begin, Action)")] Play,
         [Description("Plug (Hook, Webhook)")] Plug,
         [Description("Plus (Add, New, More)")] Plus,
         [Description("PlusSmall (Add, New, More, Small)")] PlusSmall,
@@ -158,6 +163,7 @@
         [Description("RepoPull (Book, Journal, Get)")] RepoPull,
         [Description("RepoPush (Book, Journal, Repository, Put)")] RepoPush,
         [Description("Report (Report, Abuse, Flag)")] Report,
+        [Description("RequestChanges (Diff, Changes, Request)")] RequestChanges,
         [Description("Rocket (Staff, Stafftools, Blast, Off, Space, Launch, Ship)")] Rocket,
         [Description("Rss (Broadcast, Feed, Atom)")] Rss,
         [Description("Ruby (Code, Language)")] Ruby,

@@ -1,17 +1,20 @@
-RESTRICTION: >= net40
+RESTRICTION: || (== netcoreapp3.0) (>= net45)
 NUGET
-  remote: https://www.nuget.org/api/v2
-    ControlzEx (3.0.2.4)
-    Costura.Fody (1.6.2)
-      Fody (>= 2.0 < 3.0)
-    Fody (2.4.6)
-    gitlink (3.1)
-    JetBrains.Annotations (11.1)
-    MahApps.Metro (1.6.1)
-      ControlzEx (>= 3.0.2.4 < 4.0)
-
-GROUP UWP
-
-GITHUB
-  remote: ControlzEx/ControlzEx
-    src/ControlzEx/PackIconBase.cs (2a937e3e841cb0087cfdbb8f3b4caea7f781dd1b)
+  remote: https://api.nuget.org/v3/index.json
+    ControlzEx (4.0.0-alpha0222)
+      Microsoft.Xaml.Behaviors.Wpf (>= 1.0.1)
+    Costura.Fody (3.3.2)
+      Fody (>= 3.3.5) - restriction: || (&& (== netcoreapp3.0) (>= net40)) (>= net45)
+    Fody (4.0.2)
+    JetBrains.Annotations (2018.3) - copy_local: true
+    Microsoft.Build.Tasks.Git (1.0.0-beta2-18618-05) - copy_local: true
+    Microsoft.NETCore.Platforms (3.0.0-preview.19073.11) - restriction: || (== netcoreapp3.0) (&& (>= net45) (>= netcoreapp3.0))
+    Microsoft.SourceLink.Common (1.0.0-beta2-18618-05) - copy_local: true
+    Microsoft.SourceLink.GitHub (1.0.0-beta2-18618-05) - copy_local: true
+      Microsoft.Build.Tasks.Git (>= 1.0.0-beta2-18618-05)
+      Microsoft.SourceLink.Common (>= 1.0.0-beta2-18618-05)
+    Microsoft.Xaml.Behaviors.Wpf (1.0.1)
+  remote: https://ci.appveyor.com/nuget/mahapps.metro
+    MahApps.Metro (2.0.0-alpha0251)
+      ControlzEx (>= 4.0.0-alpha0222)
+      Microsoft.NETCore.Platforms (>= 3.0.0-preview.19073.11) - restriction: || (== netcoreapp3.0) (&& (>= net45) (>= netcoreapp3.0))
