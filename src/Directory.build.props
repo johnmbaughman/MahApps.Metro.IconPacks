@@ -1,66 +1,89 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) != 'true'">false</IsBuildingWpfTempProj>
+        <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) == 'true'">true</IsBuildingWpfTempProj>
+    </PropertyGroup>
 
     <!-- Project properties -->
     <PropertyGroup>
-        <NoWarn>$(NoWarn);CS1591</NoWarn>
-        <NoError>$(NoError);CS1591</NoError>
+        <!--<TargetFrameworks>net8.0-windows;net6.0-windows;net47;net462;uap10.0.18362</TargetFrameworks>-->
+        <TargetFrameworks>net8.0-windows;net6.0-windows;net47;net462</TargetFrameworks>
 
-        <LangVersion>7.3</LangVersion>
-        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<IsUwp Condition="'$(IsUwp)'==''">false</IsUwp>
+		<IsUwp Condition="$(TargetFramework.Contains('10.0'))">true</IsUwp>
+		<IsWpf Condition="'$(IsWpf)'==''">false</IsWpf>
+		<IsWpf Condition="'$(IsUwp)' == 'false'">true</IsWpf>
+
+        <IsBuildingForLegacyFramework>false</IsBuildingForLegacyFramework>
+        <IsBuildingForLegacyFramework Condition="$(TargetFramework.StartsWith('net4'))">true</IsBuildingForLegacyFramework>
+
+        <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
+
         <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xaml;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <GenerateLibraryLayout>true</GenerateLibraryLayout>
+        <AutoGenerateBindingRedirects Condition="'$(IsBuildingForLegacyFramework)' == 'true' or '$(IsUwp)' == 'true'">true</AutoGenerateBindingRedirects>
+
+        <LangVersion>latest</LangVersion>
+
+        <NoWarn>$(NoWarn);CS1591;CS0618</NoWarn>
+        <NoError>$(NoError);CS1591;CS0618</NoError>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" !$(TargetFramework.StartsWith('uap')) ">
+    <PropertyGroup>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)\Themes\**\*.*</DefaultItemExcludes>
+        <ExtrasDefaultPageExcludes>$(ExtrasDefaultPageExcludes);$(MSBuildProjectDirectory)\Themes\**\*.*</ExtrasDefaultPageExcludes>
+    </PropertyGroup>
+
+    <!-- .NET Framework and Core -->
+    <PropertyGroup Condition="'$(IsWpf)' == 'true'">
         <UseWpf>true</UseWpf>
     </PropertyGroup>
 
-    <!-- UAP 10.0 -->
-    <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
+    <!-- UAP -->
+    <PropertyGroup Condition="'$(IsUwp)' == 'true'">
+        <DefaultTargetPlatformVersion>18362</DefaultTargetPlatformVersion>
+        <DefaultTargetPlatformMinVersion>18362</DefaultTargetPlatformMinVersion>
+        <UseWindowsDesktopSdk>true</UseWindowsDesktopSdk>
         <EnableDefaultXamlItems>true</EnableDefaultXamlItems>
+        <!-- 8002 is a strong named -> non-strong-named reference -->
+        <!-- This is valid for platforms other than .NET Framework (and is needed for the UWP targets -->
+        <NoWarn>$(NoWarn);8002;CS0618</NoWarn>
+        <NoError>$(NoError);CS0618</NoError>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.17763' ">
-        <DefineConstants>$(DefineConstants);UAP1809</DefineConstants>
+
+    <!-- SourceLink -->
+    <PropertyGroup>
+        <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <!-- <IncludeSymbols>true</IncludeSymbols> -->
+        <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <!-- Optional: Include PDB in the built .nupkg -->
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xaml;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
+        <EmbedAllSources>True</EmbedAllSources>
+    </PropertyGroup>
+
+    <!-- PDB-Options -->
+    <PropertyGroup>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>Embedded</DebugType>
     </PropertyGroup>
 
     <!-- Add the references for all projects and targets -->
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.*" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2*" PrivateAssets="All" />
+        <PackageReference Include="JetBrains.Annotations" Version="2024.*" PrivateAssets="All" IncludeAssets="build;compile" />
     </ItemGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DebugType>portable</DebugType>
-        <DebugSymbols>true</DebugSymbols>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DebugType>full</DebugType>
-        <DebugSymbols>true</DebugSymbols>
-    </PropertyGroup>
-
-    <!-- SourceLink -->
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
-        <!-- <EmbedAllSources>true</EmbedAllSources>-->
-    </PropertyGroup>
-
-    <!-- 
-    Fix for .NET Core 3.0, see https://github.com/dotnet/core-sdk/issues/192, it 
-    uses obj/release instead of [outputdirectory] 
-    -->
-    <PropertyGroup Condition=" '$(DotNetPackIntermediateOutputPath)' != '' ">
-        <IntermediateOutputPath>$(DotNetPackIntermediateOutputPath)</IntermediateOutputPath>
-    </PropertyGroup>
+    <ItemGroup>
+        <None Remove="**\*.png;**\*.jpg;**\*.ico;**\*.ttf;**\*.cur" />
+        <Resource Include="**\*.png;**\*.jpg;**\*.ico;**\*.ttf;**\*.cur" Exclude="**\bin\**\*.*;**\obj\**\*.*" />
+    </ItemGroup>
 
     <ItemGroup>
-        <None Remove="**\*.png;**\*.jpg;**\*.ico"/>
-        <Resource Include="**\*.png;**\*.jpg;**\*.ico"/>
+        <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
     </ItemGroup>
 
 </Project>

@@ -11,11 +11,15 @@ export:
   regex-text: '### Where to get it(\r\n)*You can .*\)'
   multiline-regex: true
 issue-labels-include:
-- Breaking change
+- Breaking Change
 - Bug
+- Bug Fix
+- Enhancement
 - Feature
 - Feature Request
 - Icon Update
+- Improvement
+- Hacktoberfest
 issue-labels-exclude:
 - Internal Refactoring
 - Build
@@ -26,3 +30,9 @@ issue-labels-alias:
     - name:    Documentation
       header:  Documentation
       plural:  Documentation
+    - name:    Hacktoberfest
+      header:  Hacktoberfest
+      plural:  Hacktoberfest
+    - name:    Icon Update
+      header:  Icon Update
+      plural:  Icon Updates
