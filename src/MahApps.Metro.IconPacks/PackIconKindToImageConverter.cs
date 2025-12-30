@@ -13,6 +13,9 @@ namespace MahApps.Metro.IconPacks.Converter
                 case PackIconBootstrapIconsKind kind:
                     PackIconDataFactory<PackIconBootstrapIconsKind>.DataIndex.Value?.TryGetValue(kind, out data);
                     return data;
+                case PackIconBoxIcons2Kind kind:
+                    PackIconDataFactory<PackIconBoxIcons2Kind>.DataIndex.Value?.TryGetValue(kind, out data);
+                    return data;
                 case PackIconBoxIconsKind kind:
                     PackIconDataFactory<PackIconBoxIconsKind>.DataIndex.Value?.TryGetValue(kind, out data);
                     return data;
@@ -135,33 +138,6 @@ namespace MahApps.Metro.IconPacks.Converter
                     return data;
                 default:
                     return null;
-            }
-        }
-
-        /// <inheritdoc />
-        protected override ScaleTransform GetScaleTransform(object iconKind)
-        {
-            switch (iconKind)
-            {
-                case PackIconBootstrapIconsKind _:
-                case PackIconBoxIconsKind _:
-                case PackIconCodiconsKind _:
-                case PackIconCooliconsKind _:
-                case PackIconEvaIconsKind _:
-                case PackIconFileIconsKind _:
-                case PackIconFontaudioKind _:
-                case PackIconFontistoKind _:
-                case PackIconForkAwesomeKind _:
-                case PackIconJamIconsKind _:
-                case PackIconLucideKind _:
-                case PackIconMingCuteIconsKind _:
-                case PackIconMynaUIIconsKind _:
-                case PackIconRPGAwesomeKind _:
-                case PackIconTypiconsKind _:
-                case PackIconVaadinIconsKind _:
-                    return new ScaleTransform(1, -1);
-                default:
-                    return new ScaleTransform(1, 1);
             }
         }
 

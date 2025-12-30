@@ -8,10 +8,10 @@ using Windows.UI.Xaml.Media;
 namespace MahApps.Metro.IconPacks
 {
     /// <summary>
-    /// BoxIcons licensed under [SIL OFL 1.1](<see><cref>http://scripts.sil.org/OFL</cref></see>)
-    /// Contributions, corrections and requests can be made on GitHub <see><cref>https://github.com/atisawd/boxicons</cref></see>.
+    /// BoxIcons v3 licensed under [CC 4.0 License](<see><cref>https://docs.boxicons.com/license/free</cref></see>)
+    /// Project web site <see><cref>https://boxicons.com/</cref></see>.
     /// </summary>
-    [MetaData("Boxicons", "https://boxicons.com/", "https://boxicons.com/usage/#license")]
+    [MetaData("Boxicons v3", "https://boxicons.com/", "https://docs.boxicons.com/license/free")]
     public class PathIconBoxIcons : PathIconControlBase
     {
         public static readonly DependencyProperty KindProperty
@@ -36,9 +36,6 @@ namespace MahApps.Metro.IconPacks
 
         public PathIconBoxIcons()
         {
-            var transformGroup = this.RenderTransform as TransformGroup ?? new TransformGroup();
-            var scaleTransform = new ScaleTransform() {ScaleY = -1};
-            transformGroup.Children.Insert(0, scaleTransform);
         }
 
         protected override void UpdateData()
